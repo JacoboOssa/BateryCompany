@@ -22,9 +22,38 @@ public class Company{
 
     public void registerRechargeableBattery(String name, double voltage, double cost, double capacity, int chargerNumber, char type) {
         int emtyPos = getEmtyPosition();
-        batteries[emtyPos] = new RechargeableBattery(name, voltage, cost, capacity, chargerNumber ,type);
-        
+        batteries[emtyPos] = new RechargeableBattery(name, voltage, cost, capacity, chargerNumber ,type);  
     }
+
+    public int getCountBatteryRechargeable(){
+        int totalBatteryRechargeable = 0;
+
+        if (batteries!=null){
+            for (int i=0;i<MAX_BATTERIES;i++){
+                if (batteries[i] instanceof RechargeableBattery){
+                    totalBatteryRechargeable += ((RechargeableBattery)batteries[i]).countBatteryRechargeable();        
+                }      
+            }  
+        }
+
+        return totalBatteryRechargeable;
+    }
+
+    public double getCalculateUsefulLifeCost(){
+        double total = 0;
+
+        if (batteries!=null){
+            for (int i=0;i<MAX_BATTERIES;i++){
+                if (batteries[i] instanceof RechargeableBattery){
+                    total += ((RechargeableBattery)batteries[i]).calculateUsefulLifeCost();        
+                }      
+            }  
+        }
+
+        return total;
+
+    }
+
     
     private int getEmtyPosition() {
         int pos = -1;
@@ -37,17 +66,32 @@ public class Company{
     }
 
     public String showTotalBatteries() {
-    	return "";
+        int countBattery = 0;
+        for (int i=0;i<MAX_BATTERIES;i++){
+            if (batteries[i]!=null) {
+                countBattery++;
+                
+            }
+        }
+
+    	return "El total de baterias (Desechables y recargables) es: " + countBattery;
     }
     
     public String showBatteriesInfo() {
-    	String str = "";
+        String str = "";
     	return str;
     }
     
 
 	public double calculateUsefulPromLifeCost(){
-		return 0.0;
+        int totalBattery = getCountBatteryRechargeable();
+        double lifeCost = getCalculateUsefulLifeCost();
+        double average = 0;
+
+        average += lifeCost/totalBattery;
+
+        return average;
+		
 	}
 
 }
