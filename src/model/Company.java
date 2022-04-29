@@ -67,18 +67,43 @@ public class Company{
 
     public String showTotalBatteries() {
         int countBattery = 0;
-        for (int i=0;i<MAX_BATTERIES;i++){
-            if (batteries[i]!=null) {
-                countBattery++;
-                
+        int countBatteryDesechable = 0;
+        int countBatteryRechargeable = 0;
+        if (batteries!=null){
+            for (int i=0;i<MAX_BATTERIES;i++){
+                if (batteries[i] instanceof RechargeableBattery) {
+                    countBatteryRechargeable ++;  
+                }
             }
-        }
 
-    	return "El total de baterias (Desechables y recargables) es: " + countBattery;
+            for (int i=0;i<MAX_BATTERIES;i++){
+                if (batteries[i] instanceof Battery){
+                    countBattery++;
+                }     
+            }
+
+            countBatteryDesechable += countBattery- countBatteryRechargeable;     
+        }
+    	return "El total de baterias Desechables es: " + countBatteryDesechable + "\n" +
+        "El total de baterias recargables es: " + countBatteryRechargeable;
     }
     
     public String showBatteriesInfo() {
         String str = "";
+
+        if (batteries!=null){
+            for (int i=0;i<MAX_BATTERIES;i++){
+                if (batteries[i] instanceof RechargeableBattery){
+                    str += "\nBateria Recargable " + "\n" + ((RechargeableBattery)batteries[i]).getName() + "\n" + "Costo de Vida: " + ((RechargeableBattery)batteries[i]).calculateUsefulLifeCost();    
+                }
+                else {
+                    str += "\nBateria NO Recargable " + "\n" + ((Battery)batteries[i]).getName() + "\n" + "Costo de vida: 0";
+                    
+                }
+                
+            }
+            
+        }
     	return str;
     }
     

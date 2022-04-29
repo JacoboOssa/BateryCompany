@@ -16,6 +16,21 @@ public class RechargeableBattery extends Battery implements Rechargeable{
 		this.type = type;
 	}
 
+	public int getChargerNumber(){
+		return chargerNumber;
+	}
+	public void setChargerNumber(int chargerNumber){
+		this.chargerNumber = chargerNumber;
+	}
+
+	public char getType(){
+		return type;
+	}
+	public void setType(char type){
+		this.type = type;
+	}
+
+	
 	@Override
 	public double calculateUsefulLifeCost(){
 		double total=0;
@@ -30,14 +45,15 @@ public class RechargeableBattery extends Battery implements Rechargeable{
 		return total;
 	}
 
+
 	@Override
 	public String toString(){
-		return "Nombre de la bateria: " + name +"\n" +
+		return "Nombre de la bateria: " + getName() +"\n" +
 		"Voltaje: " + voltage + "\n" + 
 		"Costo: " + cost + "\n" + 
 		"capacidad: " + capacity + "\n" +
 		"Numero de Cargas: " + chargerNumber + "\n" +
-		"Tipo: "  + type´;
+		"Tipo: "  + type;
 	}
 
 	public int countBatteryRechargeable(){
@@ -48,10 +64,5 @@ public class RechargeableBattery extends Battery implements Rechargeable{
 		}
 		return totalBatteryRechargeable;
 	}
-
-	public char getType(){
-		return type;
-	}
-
 
 }
